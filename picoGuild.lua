@@ -96,9 +96,10 @@ end
 --      Tooltip!      --
 ------------------------
 
-local tip = LibStub("tektip-1.0").new(6, "LEFT", "LEFT", "CENTER", "RIGHT", "RIGHT", "RIGHT")
+local tip = LibStub("tektip-1.0").new(3, "LEFT", "LEFT", "RIGHT")--, "RIGHT", "RIGHT", "RIGHT")
 function dataobj.OnLeave() tip:Hide() end
 function dataobj.OnEnter(self)
+	GuildRoster()
 	tip:AnchorTo(self)
 
 	tip:AddLine("picoGuild")
@@ -112,13 +113,14 @@ function dataobj.OnEnter(self)
 		for i=1,GetNumGuildMembers(true) do
 			local name, rank, rankIndex, level, class, area, note, officernote, connected, status, engclass = GetGuildRosterInfo(i)
 			if connected then
+				local inraid = UnitInRaid(name) and "+" or ""
 				local cc = RAID_CLASS_COLORS[engclass]
 				local lr, lg, lb = 0, 1, 0
 				if level < (mylevel - 5) then lr, lg, lb = .6, .6, .6
 				elseif level > (mylevel + 5) then lr, lg, lb = 1, 0, 0 end
 				local levelcolor = (level >= (mylevel - 5) and level <= (mylevel + 5)) and "|cff00ff00" or ""
-				tip:AddMultiLine((level < 10 and "0" or "")..level, name, area or "???", note, officernote, rank,
-					lr,lg,lb, cc.r,cc.g,cc.b, 1,1,1, nil,nil,nil, 1,1,0, .7,.7,1)
+				tip:AddMultiLine(inraid..(level < 10 and "0" or "")..level, name, area or "???",
+					lr,lg,lb, cc.r,cc.g,cc.b, 1,1,1)
 			end
 		end
 	else
