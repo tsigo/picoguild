@@ -96,7 +96,7 @@ end
 --      Tooltip!      --
 ------------------------
 
-local tip = LibStub("tektip-1.0").new(3, "LEFT", "LEFT", "RIGHT")--, "RIGHT", "RIGHT", "RIGHT")
+local tip = LibStub("tektip-1.0").new(4, "LEFT", "LEFT", "LEFT", "RIGHT")--, "RIGHT", "RIGHT", "RIGHT")
 function dataobj.OnLeave() tip:Hide() end
 function dataobj.OnEnter(self)
 	GuildRoster()
@@ -119,8 +119,8 @@ function dataobj.OnEnter(self)
 				if level < (mylevel - 5) then lr, lg, lb = .6, .6, .6
 				elseif level > (mylevel + 5) then lr, lg, lb = 1, 0, 0 end
 				local levelcolor = (level >= (mylevel - 5) and level <= (mylevel + 5)) and "|cff00ff00" or ""
-				tip:AddMultiLine(inraid..(level < 10 and "0" or "")..level, name, area or "???",
-					lr,lg,lb, cc.r,cc.g,cc.b, 1,1,1)
+				tip:AddMultiLine(inraid..(level < 10 and "0" or "")..level, name, note, area or "???",
+					lr,lg,lb, cc.r,cc.g,cc.b, 1,1,1, 1,1,1)
 			end
 		end
 	else
